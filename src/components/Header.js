@@ -1,8 +1,6 @@
 import React from 'react';
-import Proptypes from 'prop-types';
 
-const Header = props => {
-    const { branding } = props
+const Header = () => {
     return (
         <div className="row">
             <div className="col py-5 mb-3 bg-warning text-danger text-center">
@@ -13,14 +11,6 @@ const Header = props => {
             </div>
         </div>
     )
-}
-
-Header.defaultProps = {
-    branding: "My App"
-}
-
-Header.propTypes = {
-    branding: Proptypes.string.isRequired
 }
 
 export default Header;
