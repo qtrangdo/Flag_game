@@ -6,10 +6,11 @@ import {
 
 const initialState = {
     Pending: false,
-    //not sure why including this Pending value;
-    countries: [],
+    //including this Pending value to make a loading page;
+    countries: {},
     error:''
 }
+
 const requestFlag = (state = initialState, action) => {
     switch (action.type) {
         case REQUEST_FLAG_PENDING:
@@ -20,7 +21,8 @@ const requestFlag = (state = initialState, action) => {
         case REQUEST_FLAG_SUCCESS:
             return {
                 ...state,
-                countries: action.payload,
+                //randomize a country
+                countries: action.payload[Math.floor( Math.random() * action.payload.length)],
                 Pending: false
             }
         case REQUEST_FLAG_FAILED:
