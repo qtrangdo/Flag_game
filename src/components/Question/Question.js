@@ -2,7 +2,9 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 // import PropTypes from 'prop-types';
 import { requestFlag } from './actions';
+import Spinner from './spinner';
 import './Question.css'
+
 
 const mapStateToProps = state => {
   return {
@@ -99,7 +101,7 @@ class Question extends Component {
                 </div>
             )
         }
-       return null;
+       return <Spinner/>;
     }
 }
 
