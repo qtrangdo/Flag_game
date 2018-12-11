@@ -12,7 +12,7 @@ class App extends Component {
   render() {
     return (
       <Provider store={ store }>
-        <div className="App">
+        <div className="App bg-light">
           <Header branding="Guess The Flag"/>
           {/* <Score/> */}
           <Question/>
