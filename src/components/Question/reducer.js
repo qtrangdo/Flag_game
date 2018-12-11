@@ -10,7 +10,7 @@ const initialState = {
     countries: [],
     error:''
 }
-export default requestFlag = (state = initialState, action) => {
+const requestFlag = (state = initialState, action) => {
     switch (action.type) {
         case REQUEST_FLAG_PENDING:
             return {
@@ -33,3 +33,5 @@ export default requestFlag = (state = initialState, action) => {
             return state;
     }
 }
+
+export default requestFlag;
