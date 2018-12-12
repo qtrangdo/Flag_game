@@ -47,7 +47,29 @@ class Question extends Component {
    
     componentDidMount() {
         this.props.onRequestFlag();
-    }    
+    }  
+    
+    onClick = (event) => {
+        const { name } =this.props.country;
+        event.preventDefault();
+        let radios = document.getElementsByName('option');
+        //radios is a NodeList --> need to convert to array
+        let radioArray= Array.from(radios) 
+        for (let i=0; i < radioArray.length; i++) {
+            if (radios[i].checked === true){
+                if(radios[i].value !== name){
+                    var element = document.getElementById(radios[i].value);
+                    element.className += " bg-danger"
+                }
+                let correctElement = document.getElementById(name);
+                correctElement.className += " bg-success";
+                document.getElementsByClassName('Submit')[0].classList.add("d-none");
+                document.getElementsByClassName('Next')[0].classList.remove("d-none");
+            }
+        }  
+        // console.log(radioArray, name)
+    }
+
 
     render() {
         const {Pending} = this.props;
@@ -78,23 +100,24 @@ class Question extends Component {
                             <form>
                                 <div className="radio">
                                     <div className="mt-3">
-                                        <input type="radio" name="option"></input>
-                                        <span className="ml-3">{randomOptions[0]}</span>
+                                        <input type="radio" name="option" value={randomOptions[1]} ></input>
+                                        <span className="ml-3 p-2" id={randomOptions[0]}>{randomOptions[0]}</span>  
                                     </div>
                                     <div className="mt-3">
-                                        <input type="radio" name="option"></input>
-                                        <span className="ml-3">{randomOptions[1]}</span>
+                                        <input type="radio" name="option" value={randomOptions[1]} ></input>
+                                        <span className="ml-3 p-2" id={randomOptions[1]}>{randomOptions[1]}</span>
                                     </div>
                                     <div className="mt-3">
-                                        <input type="radio" name="option"></input>
-                                        <span className="ml-3">{randomOptions[2]}</span>
+                                        <input type="radio" name="option" value={randomOptions[2]} ></input>
+                                        <span className="ml-3 p-2" id={randomOptions[2]}>{randomOptions[2]}</span>
                                     </div>
                                     <div className="mt-3">
-                                        <input type="radio" name="option"></input>
-                                        <span className="ml-3">{randomOptions[3]}</span>
+                                        <input type="radio" name="option" value={randomOptions[3]} ></input>
+                                        <span className="ml-3 p-2" id={randomOptions[3]}>{randomOptions[3]}</span>
                                     </div>
                                 </div>
-                                <button className="btn btn-primary m-3">Submit</button>
+                                <button className="btn btn-primary m-3 Submit" onClick={this.onClick}>Submit</button>
+                                <button className="btn btn-outline-primary m-3 d-none Next" onClick={this.onNext}>Next</button>
                             </form>
                         </div>
                     </div>
