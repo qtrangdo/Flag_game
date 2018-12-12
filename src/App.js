@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Header from './components/Header';
+import Score from './components/Score';
 import Footer from './components/Footer';
 import Question from './components/Question/Question';
 import store from './store';
@@ -13,7 +14,7 @@ class App extends Component {
       <Provider store={ store }>
         <div className="App bg-light">
           <Header branding="Guess The Flag"/>
-          {/* <Score/> */}
+          <Score/>
           <Question/>
           {/* <Modal/> */}
           <Footer/>

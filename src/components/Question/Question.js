@@ -31,6 +31,11 @@ const shuffleOpts = (options) => {
 }
 
 class Question extends Component {
+    constructor(props){
+        super(props);
+        this.score = 0;
+        this.totalQuestion = 0
+    }
    
     componentDidMount() {
         this.props.onRequestFlag();
@@ -90,7 +95,7 @@ class Question extends Component {
                 <div className="container">
                     <div className="row">
                         <div className="col-md-7">
-                            <div className="card card-body my-5 img-container">
+                            <div className="card card-body mb-4 mt-5 img-container">
                                 <img src={flag}
                                     alt="testing"
                                     className="img-fluid h-100"
