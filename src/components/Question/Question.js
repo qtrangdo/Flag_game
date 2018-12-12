@@ -19,10 +19,6 @@ const mapDispatchToProps = dispatch => {
   }
 }
 
-//Getting Random Index for Random Options;
-
-
-
 
 const shuffleOpts = (options) => {
     let shuffled = [];
@@ -40,6 +36,7 @@ class Question extends Component {
         this.props.onRequestFlag();
     }  
     
+    //Getting Random Index for Random Options;
     getIndexes = (data) => {
         const {name} = this.props.country;
         const { countries } = this.props;
@@ -71,7 +68,7 @@ class Question extends Component {
                 document.getElementsByClassName('Next')[0].classList.remove("d-none");
             }
         }  
-        console.log(radioArray, name)
+        // console.log(radioArray, name)
     }
 
 
