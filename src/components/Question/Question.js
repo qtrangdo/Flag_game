@@ -21,16 +21,7 @@ const mapDispatchToProps = dispatch => {
 
 //Getting Random Index for Random Options;
 
-const getIndexes = (data) => {
-    let indexes = [];
-    while (indexes.length < 3) {
-        let index = Math.floor(Math.random() * data.length)
-        if (!indexes.includes(index)) {
-            indexes.push(index)
-        }
-    }
-    return indexes;
-}
+
 
 
 const shuffleOpts = (options) => {
@@ -49,6 +40,19 @@ class Question extends Component {
         this.props.onRequestFlag();
     }  
     
+    getIndexes = (data) => {
+        const {name} = this.props.country;
+        const { countries } = this.props;
+        let indexes = [];
+        while (indexes.length < 3) {
+            let index = Math.floor(Math.random() * data.length)
+            if (!indexes.includes(index) && countries[index].name !== name) {
+                indexes.push(index)
+            }
+        }
+        return indexes;
+    }
+
     onClick = (event) => {
         const { name } =this.props.country;
         event.preventDefault();
@@ -67,7 +71,7 @@ class Question extends Component {
                 document.getElementsByClassName('Next')[0].classList.remove("d-none");
             }
         }  
-        // console.log(radioArray, name)
+        console.log(radioArray, name)
     }
 
 
@@ -78,7 +82,7 @@ class Question extends Component {
         let options = [name]
         
         if(!Pending && countries.length){
-            let indexes = getIndexes(countries);
+            let indexes = this.getIndexes(countries);
             for (let index of indexes){
                 options.push(countries[index].name)
             }
@@ -100,7 +104,7 @@ class Question extends Component {
                             <form>
                                 <div className="radio">
                                     <div className="mt-3">
-                                        <input type="radio" name="option" value={randomOptions[1]} ></input>
+                                        <input type="radio" name="option" value={randomOptions[0]} ></input>
                                         <span className="ml-3 p-2" id={randomOptions[0]}>{randomOptions[0]}</span>  
                                     </div>
                                     <div className="mt-3">
