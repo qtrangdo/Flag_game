@@ -37,8 +37,14 @@ class Question extends Component {
 
     componentDidMount() {
         this.props.onRequestFlag();
-    }  
-    
+    } 
+   
+    shouldComponentUpdate(nextProps, nextState){
+        return nextProps.totalQuestion === this.props.totalQuestion 
+        ? true
+        : false
+    }
+
     //Getting Random Index for Random Options;
     getIndexes = (data) => {
         const {name} = this.props.country;
@@ -67,24 +73,28 @@ class Question extends Component {
         //radios is a NodeList --> need to convert to array
         let radioArray= Array.from(radios) 
         let correct = true;
-        for (let i=0; i < radioArray.length; i++) {
-            if (radios[i].checked === true){
-                if(radios[i].value !== name){
-                    var element = document.getElementById(radios[i].value);
-                    element.className += " bg-danger";
-                    correct = false;
+        const checkAnswer = () => {
+            for (let i=0; i < radioArray.length; i++) {
+                if (radios[i].checked === true){
+                    if(radios[i].value !== name){
+                        var element = document.getElementById(radios[i].value);
+                        element.className += " bg-danger";
+                        correct = false;
+                    }
+                    let correctElement = document.getElementById(name);
+                    correctElement.className += " bg-success";
+                    document.getElementsByClassName('Submit')[0].classList.add("d-none");
+                    document.getElementsByClassName('Next')[0].classList.remove("d-none");
+                    this.props.onUpdateScore(correct,{score,totalQuestion})
                 }
-                let correctElement = document.getElementById(name);
-                correctElement.className += " bg-success";
-                document.getElementsByClassName('Submit')[0].classList.add("d-none");
-                document.getElementsByClassName('Next')[0].classList.remove("d-none");
-            }
-        } 
-        console.log(correct)
-        this.props.onUpdateScore(correct,{score,totalQuestion})
-
+            } 
+            return correct;
+        }
+        checkAnswer();
+        
         // console.log(radioArray, name)
     }
+    
 
     onNext = (event) => {
         event.preventDefault();
