@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 const mapStateToProps = state => {
     return {
         score: state.scoreInfo.score,
+        totalQuestion: state.scoreInfo.totalQuestion
     }
 }
 
@@ -14,13 +15,12 @@ const mapDispatchToProps = dispatch => {
 
 class Score extends Component {
     render (){
-        let {score} = this.props;
-        let actualScoreNumber = Number(score)
+        let {score, totalQuestion} = this.props;
         return (
             <div className="container">
                 <div className='bg-info text-white d-flex pt-1 justify-content-center'>
                     <h3 >Current Score:{' '}
-                        <span>{actualScoreNumber}</span>
+                        <span>{Number(score)} / {Number(totalQuestion)}</span>
                         <i className="far fa-smile-beam ml-3"></i>
                     </h3>
                 </div>
