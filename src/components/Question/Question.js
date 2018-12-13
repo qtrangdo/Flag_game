@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { requestFlag, scoreInfo } from './actions';
 import Spinner from './spinner';
 import './Question.css'
-
+import Result from '../Result'
 
 const mapStateToProps = state => {
   return {
@@ -98,7 +98,9 @@ class Question extends Component {
 
     onNext = (event) => {
         event.preventDefault();
-        this.componentDidMount();
+        if (Number(this.props.totalQuestion) < 5){
+            this.componentDidMount();
+        } else {alert(<Result/>)}
     }
 
 
@@ -149,6 +151,7 @@ class Question extends Component {
                                 </div>
                                 <button className="btn btn-primary m-3 Submit" onClick={this.onClick}>Submit</button>
                                 <button className="btn btn-outline-primary m-3 d-none Next" onClick={this.onNext}>Next</button>
+                                
                             </form>
                         </div>
                     </div>
