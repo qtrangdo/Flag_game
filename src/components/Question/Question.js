@@ -100,7 +100,10 @@ class Question extends Component {
         event.preventDefault();
         if (Number(this.props.totalQuestion) < 5){
             this.componentDidMount();
-        } else {alert(<Result/>)}
+        } else {
+            document.getElementsByClassName('Next')[0].classList.add("d-none");
+            document.getElementsByClassName('Result')[0].classList.remove("d-none");
+        }
     }
 
 
@@ -150,7 +153,7 @@ class Question extends Component {
                                     </div>
                                 </div>
                                 <button className="btn btn-primary m-3 Submit" onClick={this.onClick}>Submit</button>
-                                <button className="btn btn-outline-primary m-3 d-none Next" onClick={this.onNext}>Next</button>
+                                <button className="btn btn-outline-primary m-3 d-none Next" onClick={this.onNext}>Next</button> 
                                 
                             </form>
                         </div>

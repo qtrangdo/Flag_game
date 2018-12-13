@@ -3,6 +3,7 @@ import Header from './components/Header';
 import Score from './components/Score';
 import Footer from './components/Footer';
 import Question from './components/Question/Question';
+import Result from './components/Result';
 import store from './store';
 import { Provider } from 'react-redux';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -13,10 +14,10 @@ class App extends Component {
     return (
       <Provider store={ store }>
         <div className="App bg-light">
-          <Header branding="Guess The Flag"/>
+          <Header/>
           <Score/>
           <Question/>
-          {/* <Modal/> */}
+          <Result/>
           <Footer/>
         </div>
       </Provider>
