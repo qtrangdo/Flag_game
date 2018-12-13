@@ -1,6 +1,7 @@
 import { combineReducers } from 'redux';
-import requestFlag from '../components/Question/reducer';
+import {requestFlag, scoreInfo} from '../components/Question/reducer';
 
 export default combineReducers ({
-    countries: requestFlag
+    countries: requestFlag,
+    scoreInfo: scoreInfo
 })

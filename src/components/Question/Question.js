@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 // import PropTypes from 'prop-types';
-import { requestFlag } from './actions';
+import { requestFlag, scoreInfo } from './actions';
 import Spinner from './spinner';
 import './Question.css'
 
@@ -10,12 +10,15 @@ const mapStateToProps = state => {
   return {
     countries: state.countries.countries,
     country: state.countries.country,
-    Pending: state.countries.Pending
+    Pending: state.countries.Pending,
+    score: state.scoreInfo.score,
+    totalQuestion: state.scoreInfo.totalQuestion
   }
 }
 const mapDispatchToProps = dispatch => {
   return {
-    onRequestFlag: () => dispatch(requestFlag())
+    onRequestFlag: () => dispatch(requestFlag()),
+    onUpdateScore: (correct,props) => dispatch(scoreInfo(correct,props))
   }
 }
 
@@ -31,12 +34,7 @@ const shuffleOpts = (options) => {
 }
 
 class Question extends Component {
-    constructor(props){
-        super(props);
-        this.score = 0;
-        this.totalQuestion = 0
-    }
-   
+
     componentDidMount() {
         this.props.onRequestFlag();
     }  
@@ -55,25 +53,42 @@ class Question extends Component {
         return indexes;
     }
 
+    correctAnswer = (data) => {
+        if (data) return true;
+        return false;
+    }
+
     onClick = (event) => {
-        const { name } =this.props.country;
+        // console.log(this.props)
         event.preventDefault();
+        const { name } = this.props.country;
+        const {score, totalQuestion} = this.props;
         let radios = document.getElementsByName('option');
         //radios is a NodeList --> need to convert to array
         let radioArray= Array.from(radios) 
+        let correct = true;
         for (let i=0; i < radioArray.length; i++) {
             if (radios[i].checked === true){
                 if(radios[i].value !== name){
                     var element = document.getElementById(radios[i].value);
-                    element.className += " bg-danger"
+                    element.className += " bg-danger";
+                    correct = false;
                 }
                 let correctElement = document.getElementById(name);
                 correctElement.className += " bg-success";
                 document.getElementsByClassName('Submit')[0].classList.add("d-none");
                 document.getElementsByClassName('Next')[0].classList.remove("d-none");
             }
-        }  
+        } 
+        console.log(correct)
+        this.props.onUpdateScore(correct,{score,totalQuestion})
+
         // console.log(radioArray, name)
+    }
+
+    onNext = (event) => {
+        event.preventDefault();
+        this.componentDidMount();
     }
 
 

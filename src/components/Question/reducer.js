@@ -1,7 +1,11 @@
 import {
     REQUEST_FLAG_PENDING,
     REQUEST_FLAG_SUCCESS,
-    REQUEST_FLAG_FAILED
+    REQUEST_FLAG_FAILED,
+    UPDATE_SCORE,
+    UPDATE_TOTALQUESTION,
+    UPDATE_FAILED,
+
 } from './actiontypes';
 
 const initialState = {
@@ -9,11 +13,13 @@ const initialState = {
     //including this Pending value to make a loading page;
     countries: [],
     country: {},
-    error: ''
+    error: '',
+    score: '',
+    totalQuestion:''
 }
 
 
-const requestFlag = (state = initialState, action) => {
+export const requestFlag = (state = initialState, action) => {
     switch (action.type) {
         case REQUEST_FLAG_PENDING:
             return {
@@ -26,7 +32,7 @@ const requestFlag = (state = initialState, action) => {
                 countries: action.payload,
                 //randomize a country
                 country: action.payload[Math.floor(Math.random() * action.payload.length)],
-                Pending: false
+                Pending: false,
             }
         case REQUEST_FLAG_FAILED:
             return {
@@ -39,4 +45,29 @@ const requestFlag = (state = initialState, action) => {
     }
 }
 
-export default requestFlag;
+
+export const scoreInfo = (state = initialState, action) => {
+    switch (action.type) {
+        case UPDATE_SCORE:{
+            return {
+                ...state,
+                score: action.payload
+            }
+        }
+        case UPDATE_TOTALQUESTION: {
+            return {
+                ...state,
+                totalQuestion: action.payload
+            }
+        }
+        case UPDATE_FAILED: {
+            return {
+                ...state,
+                error: action.payload
+            }
+        }
+        default:
+            return state;
+    }
+
+}
