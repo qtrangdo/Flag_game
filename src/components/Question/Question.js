@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import { requestFlag, scoreInfo } from './actions';
 import Spinner from './spinner';
 import './Question.css'
-import Result from '../Result'
 
 const mapStateToProps = state => {
   return {
@@ -118,7 +117,7 @@ class Question extends Component {
             for (let index of indexes){
                 options.push(countries[index].name)
             }
-            console.log(options);
+            // console.log(options);
             //options[0] is the correct answer
             let randomOptions= shuffleOpts(options);
             return (

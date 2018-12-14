@@ -27,7 +27,7 @@ const updateTotalQuestion = (props) => {
 }
 
 export const scoreInfo = (correct, props) => (dispatch) => {
-    console.log(correct, props)
+    // console.log(correct, props)
     if (correct === true && props) {dispatch ({ type: UPDATE_SCORE, payload: updateScore(props)})};
     if (props) {dispatch ({ type: UPDATE_TOTALQUESTION, payload: updateTotalQuestion(props)})}
     else {dispatch({type: UPDATE_FAILED, payload: "can't update score"})}
