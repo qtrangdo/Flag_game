@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import {Modal} from 'react-bootstrap';
 
 const mapStateToProps = state => {
     return {
@@ -15,22 +14,6 @@ const mapDispatchToProps = dispatch => {
 
 
 class Result extends Component {
-    constructor(props, context) {
-        super(props, context);
-        this.state = {
-            showModal: false
-        };
-        this.handleShow = this.handleShow.bind(this)
-        this.handleClose = this.handleClose.bind(this)
-    }
-
-    handleClose() {
-        this.setState({showModal: false})
-    }
-    handleShow() {
-        this.setState({showModal: true})
-    }
-
     render() {
         const { score } = this.props;
         return (
@@ -39,31 +22,16 @@ class Result extends Component {
                     <div className="row">
                         <div className="col-md-9">{' '}</div>
                         <div className="col-md-3 d-flex justify-content-center">
-                            <button className="btn btn-outline-success m-3 d-none Result" onClick={this.handleShow}>Result</button>
+                            <button type="button" className="btn btn-success m-3 d-none Result" data-toggle="modal" data-target="#resultModal">Result</button>
                         </div>
                     </div>
                 </div>
-                <Modal show={this.state.showModal} onHide={this.handleClose} >
-                    <Modal.Header>
-                        <Modal.Title>Your Result</Modal.Title>
-                        <button className="close" data-dismiss="modal">
-                            <span> &times; </span>
-                        </button>
-                    </Modal.Header>
-                    <Modal.Body>
-                        <p>You got {Number(score)} out of 5 flags correctly</p>
-                    </Modal.Body>
-                    <Modal.Footer>
-                        <button className="btn btn-success btn-block">Restart</button>
-                    </Modal.Footer>
-                </Modal>
-
-                {/* <div className="modal fade text-dark" id="resultModal">
-                    <div className="modal-dialog">
+                <div className="modal fade" id="resultModal" role="dialog">
+                    <div className="modal-dialog modal-dialog-centered" role="document">
                         <div className="modal-content">
                             <div className="modal-header">
                                 <h5 className="modal-title">Your Result</h5>
-                                <button className="close" data-dismiss="modal">
+                                <button type="button" className="close" data-dismiss="modal">
                                     <span> &times; </span>
                                 </button>
                             </div>
@@ -71,11 +39,11 @@ class Result extends Component {
                                 <p>You got {Number(score)} out of 5 flags correctly</p>
                             </div>
                             <div className="modal-footer">
-                                <button className="btn btn-success btn-block">Restart</button>
+                                <button className="btn btn-warning btn-block">Restart</button>
                             </div>
                         </div>
                     </div>
-                </div> */}
+                </div>
             </div>
         );
     }
