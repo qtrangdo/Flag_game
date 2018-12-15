@@ -53,11 +53,11 @@ class Result extends Component {
         return (
             <div>
                 <div className="container">
-                    <div className="row">
+                    <div className="row m-0">
                         <div className="col-md-9">{' '}</div>
                         <div className="col-md-3 d-flex justify-content-center">
                             <button onClick={this.toggleModal} type="button" 
-                                className="btn btn-info m-3 d-none Result" 
+                                className="btn btn-info btn-lg m-3 d-none Result" 
                                 data-toggle="modal" data-target="#resultModal"
                             >Result</button>
                         </div>
