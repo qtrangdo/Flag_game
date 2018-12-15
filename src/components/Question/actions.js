@@ -4,7 +4,8 @@ import {
     REQUEST_FLAG_FAILED,
     UPDATE_SCORE,
     UPDATE_TOTALQUESTION,
-    UPDATE_FAILED
+    UPDATE_FAILED,
+    RESTART
 } from './actiontypes';
 
 export const requestFlag = () => (dispatch) => {
@@ -28,7 +29,10 @@ const updateTotalQuestion = (props) => {
 
 export const scoreInfo = (correct, props) => (dispatch) => {
     // console.log(correct, props)
-    if (correct === true && props) {dispatch ({ type: UPDATE_SCORE, payload: updateScore(props)})};
-    if (props) {dispatch ({ type: UPDATE_TOTALQUESTION, payload: updateTotalQuestion(props)})}
-    else {dispatch({type: UPDATE_FAILED, payload: "can't update score"})}
+    try{
+        if (correct === true && props) {dispatch ({ type: UPDATE_SCORE, payload: updateScore(props)})};
+        if (props) {dispatch ({ type: UPDATE_TOTALQUESTION, payload: updateTotalQuestion(props)})}
+        if (correct === undefined && props === undefined){dispatch({type:RESTART, payload:'0'})}
+    }
+    catch (error){dispatch({type: UPDATE_FAILED, payload: "error"})}
 }

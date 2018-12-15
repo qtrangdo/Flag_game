@@ -5,7 +5,7 @@ import {
     UPDATE_SCORE,
     UPDATE_TOTALQUESTION,
     UPDATE_FAILED,
-
+    RESTART
 } from './actiontypes';
 
 const initialState = {
@@ -57,6 +57,13 @@ export const scoreInfo = (state = initialState, action) => {
         case UPDATE_TOTALQUESTION: {
             return {
                 ...state,
+                totalQuestion: action.payload
+            }
+        }
+        case RESTART:{
+            return {
+                ...state,
+                score: action.payload,
                 totalQuestion: action.payload
             }
         }

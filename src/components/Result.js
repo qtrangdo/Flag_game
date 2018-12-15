@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { requestFlag, scoreInfo } from './Question/actions';
 
 const mapStateToProps = state => {
     return {
@@ -10,7 +11,10 @@ const mapStateToProps = state => {
 
 //no dispatch needed
 const mapDispatchToProps = dispatch => {
-    return {};
+    return {
+        onRequestFlag: () => dispatch(requestFlag()),
+        onRestart: () => dispatch(scoreInfo())
+    };
 }
 
 
@@ -23,7 +27,26 @@ class Result extends Component {
         showResult: !this.state.showResult
     })
     
-    restart = () => this.forceUpdate()
+    uncheck = () => {
+        var NodeListArr = Array.from(document.getElementsByName('option'));
+        for (let node of NodeListArr){
+            node.checked = false
+        }
+    }
+
+    restart = () => {
+        this.props.onRestart();
+        this.props.onRequestFlag();
+        document.getElementsByClassName('Result')[0].classList.add("d-none");
+        document.getElementsByClassName('Submit')[0].classList.remove("d-none");
+        if(document.getElementsByClassName('bg-danger')[0]){
+            document.getElementsByClassName('bg-danger')[0].classList.remove("bg-danger");
+        }
+        if(document.getElementsByClassName('bg-success')[0]){
+            document.getElementsByClassName('bg-success')[0].classList.remove("bg-success");
+        } 
+        this.uncheck()
+    }
 
     render() {
         const { score,totalQuestion } = this.props;
@@ -63,7 +86,7 @@ class Result extends Component {
                                 <p>You got {Number(score)} out of {Number(totalQuestion)}  flags correctly. Nice play!</p>
                             </div>
                             <div className="modal-footer">
-                                <button type="button" className="btn btn-warning btn-block" onClick={this.restart}>Restart</button>
+                                <button type="button" className="btn btn-warning text-danger btn-block" onClick={this.restart.bind(this)}>Restart</button>
                             </div>
                         </div>
                     </div>
